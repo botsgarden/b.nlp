@@ -14,7 +14,7 @@ import scala.util.{Failure, Success}
 import io.vertx.lang.scala.ScalaVerticle
 import scala.concurrent.{Future}
 
-object BeeSlack extends App {
+object BeeNlp extends App {
 
   val vertx = Vertx.vertx
   
@@ -50,7 +50,7 @@ object BeeSlack extends App {
   )
 
   vertx
-    .deployVerticleFuture(ScalaVerticle.nameForVerticle[brain.BeeSlack])
+    .deployVerticleFuture(ScalaVerticle.nameForVerticle[brain.BeeNlp])
     .onComplete {
       case Success(verticleId) => println(s"Successfully deployed verticle: $verticleId")
       case Failure(error) => println(s"Failed to deploy verticle: $error")
@@ -59,11 +59,11 @@ object BeeSlack extends App {
 }
 
 
-class BeeSlack extends ScalaVerticle {
+class BeeNlp extends ScalaVerticle {
 
   override def stopFuture(): Future[_] = {
 
-    var unpublishRecordFuture = BeeSlack.discovery.unpublishFuture(BeeSlack.record.getRegistration)
+    var unpublishRecordFuture = BeeNlp.discovery.unpublishFuture(BeeNlp.record.getRegistration)
     
     unpublishRecordFuture.onComplete {
       case Success(result) => {
@@ -85,7 +85,7 @@ class BeeSlack extends ScalaVerticle {
     val httpPort = sys.env.getOrElse("PORT", "8080").toInt
 
     // publish the microservice record
-    BeeSlack.discovery.publishFuture(BeeSlack.record).onComplete{
+    BeeNlp.discovery.publishFuture(BeeNlp.record).onComplete{
       case Success(result) => println(s"😃 publication OK")
       case Failure(cause) => println(s"😡 publication KO: ")
     }
