@@ -117,7 +117,7 @@ class BeeNlp extends ScalaVerticle {
 
     router.route("/*").handler(StaticHandler.create)
 
-    println(s"🌍 Listening on $httpPort  - Enjoy 😄")
+    println(s"🌍 🐝 Bee NLP module Listening on $httpPort  - Enjoy 😄")
     server.requestHandler(router.accept _).listenFuture(httpPort)
   }
 
